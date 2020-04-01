@@ -1,5 +1,5 @@
+const md5 = require('md5');
 const pool = require('../models/user.model');
-
 
 // GET
 
@@ -27,9 +27,10 @@ module.exports.getUserById = (req, res) => {
 
 // POST
 module.exports.createUser = (req, res) => {
-    const { name, email } = req.body;
+    const { name, email, phone, password } = req.body;
+    const hashPassword = md5(req.body.password);
   
-    pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
+    pool.query('INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)', [name, email, phone, hashPassword], (error, results) => {
       if (error) {
         throw error;
       };
@@ -40,11 +41,11 @@ module.exports.createUser = (req, res) => {
 // PUT
 module.exports.updateUser = (req, res) => {
     const id = parseInt(req.params.id);
-    const { name, email } = req.body;
+    const { name, email, phone, password } = req.body;
   
     pool.query(
-      'UPDATE users SET name = $1, email = $2 WHERE id = $3',
-      [name, email, id],
+      'UPDATE users SET name = $1, email = $2, phone = $3, password = $4 WHERE id = $5',
+      [name, email, phone, password, id],
       (error, results) => {
         if (error) {
           throw error;
