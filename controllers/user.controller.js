@@ -1,17 +1,10 @@
-const Pool = require('pg').Pool;
+const pool = require('../models/user.model');
 
-const pool = new Pool({
-  user: 'ductn',
-  host: 'localhost',
-  database: 'api',
-  password: 'ductn',
-  port: 5432,
-});
 
 // GET
 
 //-- GET all users
-const getUsers = (req, res) => {
+module.exports.getUsers = (req, res) => {
     pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
       if (error) {
         throw error
@@ -21,7 +14,7 @@ const getUsers = (req, res) => {
 }
 
 //--GET Single users
-const getUserById = (req, res) => {
+module.exports.getUserById = (req, res) => {
     const id = parseInt(req.params.id);
   
     pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
@@ -33,7 +26,7 @@ const getUserById = (req, res) => {
 };
 
 // POST
-const createUser = (req, res) => {
+module.exports.createUser = (req, res) => {
     const { name, email } = req.body;
   
     pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
@@ -45,7 +38,7 @@ const createUser = (req, res) => {
 };
 
 // PUT
-const updateUser = (req, res) => {
+module.exports.updateUser = (req, res) => {
     const id = parseInt(req.params.id);
     const { name, email } = req.body;
   
@@ -62,7 +55,7 @@ const updateUser = (req, res) => {
 };
 
 // DELETE
-const deleteUser = (req, res) => {
+module.exports.deleteUser = (req, res) => {
     const id = parseInt(req.params.id); 
     pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
       if (error) {
@@ -72,11 +65,3 @@ const deleteUser = (req, res) => {
     });
 };
 
-// Exports
-module.exports = {
-    getUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser,
-}
