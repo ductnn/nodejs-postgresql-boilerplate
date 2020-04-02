@@ -9,6 +9,7 @@ const app = new express();
 // ROUTES
 const userRoute = require('./routes/user.route');
 
+app.use('/static', express.static('public'));
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
