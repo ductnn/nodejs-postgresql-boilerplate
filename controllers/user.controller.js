@@ -98,7 +98,8 @@ module.exports.deleteUser = (req, res) => {
     if (error) {
       throw error;
     };
-    res.status(200).send(`User deleted with ID: ${id}`);
+    // res.status(200).send(`User deleted with ID: ${id}`);
+    res.redirect('/users');
   });
 };
 
