@@ -1,4 +1,4 @@
-const md5 = require('md5');
+const bcrypt = require('bcrypt');
 const pool = require('../models/user.model');
 
 // GET
@@ -59,18 +59,20 @@ module.exports.getUserById = (req, res) => {
 // POST
 module.exports.createUser = (req, res) => {
   const { name, email, phone, password } = req.body;
-  const hashPassword = md5(req.body.password);
 
-  pool.query(
-    'INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)', 
-    [name, email, phone, hashPassword], 
-    (error, results) => {
-      if (error) {
-        throw error;
-      };
-      // res.status(201).send(`User added with ID: ${result.insertId}`);
-      res.redirect('/users');
-  });
+  bcrypt.hash(req.body.password, 10, function(err, hash) {
+    // Store hash in your password DB.
+    pool.query(
+      'INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)', 
+      [name, email, phone, hash], 
+      (error, results) => {
+        if (error) {
+          throw error;
+        };
+        // res.status(201).send(`User added with ID: ${result.insertId}`);    
+        res.redirect('/users');
+    });    
+  });  
 };
 
 // PUT
