@@ -1,0 +1,29 @@
+extends ../layouts/common.pug
+
+block content
+    h1 
+        span.mr-3 Hello #{name}
+        a.btn.btn-primary(href="/users/create") Create
+    .d-flex.align-items-center
+        form.ml-auto(action="/users/search/", method="GET", class="d-flex")
+            input(type="search", name="q", class="form-control mb-2 mr-sm-2", id="search-input", placeholder="Search..." )
+            button(class="btn btn-primary mb-2") Search
+    table.table
+        tr
+            th id
+            th Name
+            th Phone
+            th View 
+            th Actions
+
+        each user in users.rows
+            tr
+                td= user.id
+                td= user.name
+                td= user.phone
+                td
+                    a(href="/users/" + user.id) Profile
+                td 
+                    a.btn.btn-success.mr-3(href="#") Edit
+                    a.btn.btn-danger(href="#") Delete
+

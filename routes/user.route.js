@@ -3,10 +3,18 @@ const controller = require('../controllers/user.controller');
 
 const router = express.Router();
 
+// GET
 router.get('/', controller.getUsers);
+router.get('/create', controller.getCreateUser);
 router.get('/:id', controller.getUserById);
-router.post('/', controller.createUser);
+
+// POST
+router.post('/create', controller.createUser);
+
+// PUT
 router.put('/:id', controller.updateUser);
+
+// DELETE
 router.delete('/:id', controller.deleteUser);
 
 module.exports = router;

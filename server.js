@@ -12,8 +12,13 @@ const userRoute = require('./routes/user.route');
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+app.set('view engine', 'pug');
+app.set('views', './views');
+
 app.get('/', (req, res) => {
-    res.json({ info: 'NodeJS + API + PostgresSQL'});
+    res.render('index', {
+        name: 'Ductn'
+    });
 });
 
 app.use('/users', userRoute);
