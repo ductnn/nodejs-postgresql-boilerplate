@@ -1,7 +1,15 @@
 extends ../layouts/common.pug
 
 block content
-    h1 View Users
-    p
-        b Name 
-        span= user
+    h1.my-sm-5 View Users
+    table.table
+        tr
+            th id
+            th Name
+            th Email
+            th Phone
+        tr
+            td= user.id
+            td= user.name
+            td= user.email
+            td= user.phone

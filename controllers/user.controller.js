@@ -17,8 +17,25 @@ module.exports.getUsers = (req, res) => {
   })
 }
 
+//-- GET create user
 module.exports.getCreateUser = (req, res) => {
   res.render('users/create');
+};
+
+//-- GET edit user
+module.exports.getUpdateUser = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    // res.status(200).json(results.rows);
+    console.log(results.rows[0]);
+    res.render('users/edit', {
+      user: results.rows[0]
+    })
+  });
 };
 
 //--GET Single users
@@ -29,11 +46,11 @@ module.exports.getUserById = (req, res) => {
     if (error) {
       throw error
     }
-    res.status(200).json(results.rows);
-    // console.log(results.rows.name);
-    // res.render('users/view', {
-    //   user: results.rows
-    // })
+    // res.status(200).json(results.rows);
+    console.log(results.rows[0]);
+    res.render('users/view', {
+      user: results.rows[0]
+    })
   });
 };
 
@@ -44,12 +61,15 @@ module.exports.createUser = (req, res) => {
   const { name, email, phone, password } = req.body;
   const hashPassword = md5(req.body.password);
 
-  pool.query('INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)', [name, email, phone, hashPassword], (error, results) => {
-    if (error) {
-      throw error;
-    };
-    // res.status(201).send(`User added with ID: ${result.insertId}`);
-    res.redirect('/users');
+  pool.query(
+    'INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)', 
+    [name, email, phone, hashPassword], 
+    (error, results) => {
+      if (error) {
+        throw error;
+      };
+      // res.status(201).send(`User added with ID: ${result.insertId}`);
+      res.redirect('/users');
   });
 };
 
@@ -65,7 +85,8 @@ module.exports.updateUser = (req, res) => {
       if (error) {
         throw error;
       };
-      res.status(200).send(`User modified with ID: ${id}`);
+      // res.status(200).send(`User modified with ID: ${id}`);
+      res.redirect('/users');
     }
   );
 };

@@ -7,12 +7,13 @@ const router = express.Router();
 router.get('/', controller.getUsers);
 router.get('/create', controller.getCreateUser);
 router.get('/:id', controller.getUserById);
+router.get('/edit/:id', controller.getUpdateUser);
 
 // POST
 router.post('/create', controller.createUser);
 
-// PUT
-router.put('/:id', controller.updateUser);
+// UPDATE
+router.post('/edit/:id', controller.updateUser);
 
 // DELETE
 router.delete('/:id', controller.deleteUser);

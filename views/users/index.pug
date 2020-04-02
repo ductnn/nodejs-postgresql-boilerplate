@@ -12,6 +12,7 @@ block content
         tr
             th id
             th Name
+            th Email
             th Phone
             th View 
             th Actions
@@ -20,10 +21,11 @@ block content
             tr
                 td= user.id
                 td= user.name
+                td= user.email
                 td= user.phone
                 td
                     a(href="/users/" + user.id) Profile
                 td 
-                    a.btn.btn-success.mr-3(href="#") Edit
+                    a.btn.btn-success.mr-3(href="/users/edit/" + user.id) Edit
                     a.btn.btn-danger(href="#") Delete
 
