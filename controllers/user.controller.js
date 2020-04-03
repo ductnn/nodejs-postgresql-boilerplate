@@ -71,7 +71,8 @@ module.exports.createUser = (req, res) => {
         };
         // res.status(201).send(`User added with ID: ${result.insertId}`);    
         res.redirect('/users');
-    });    
+      }
+    );    
   });  
 };
 
@@ -80,17 +81,20 @@ module.exports.updateUser = (req, res) => {
   const id = parseInt(req.params.id);
   const { name, email, phone, password } = req.body;
 
-  pool.query(
-    'UPDATE users SET name = $1, email = $2, phone = $3, password = $4 WHERE id = $5',
-    [name, email, phone, password, id],
-    (error, results) => {
-      if (error) {
-        throw error;
-      };
-      // res.status(200).send(`User modified with ID: ${id}`);
-      res.redirect('/users');
-    }
-  );
+  bcrypt.hash(req.body.password, 10, function(err, hash) {
+    // Store hash in your password DB.
+    pool.query(
+      'UPDATE users SET name = $1, email = $2, phone = $3, password = $4 WHERE id = $5',
+      [name, email, phone, hash, id],
+      (error, results) => {
+        if (error) {
+          throw error;
+        };
+        // res.status(200).send(`User modified with ID: ${id}`);
+        res.redirect('/users');
+      }
+    );
+  });
 };
 
 // DELETE
