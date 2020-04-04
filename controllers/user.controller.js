@@ -74,8 +74,9 @@ module.exports.createUser = (req, res) => {
         res.redirect('/users');
       }
     );    
-    console.log(req.body)
   });  
+
+  console.log(req.body);
 };
 
 // PUT
