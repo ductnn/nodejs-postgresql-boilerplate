@@ -8,6 +8,7 @@ const app = new express();
 
 // ROUTES
 const userRoute = require('./routes/user.route');
+const authRoute = require('./routes/auth.route');
 
 // API
 const apiUserRoute = require('./api/routes/user.route');
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 
 // use ROUTES
 app.use('/users', userRoute);
+app.use('/auth', authRoute);
 
 // use API
 app.use('/api/users', apiUserRoute);
