@@ -10,6 +10,7 @@ block content
             button(class="btn btn-primary mb-2") Search
     table.table
         tr
+            th Avatar
             th id
             th Name
             th Email
@@ -19,6 +20,8 @@ block content
 
         each user in users.rows
             tr
+                td
+                    img(src= '/static/' + user.image, width=32)
                 td= user.id
                 td= user.name
                 td= user.email

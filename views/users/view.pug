@@ -4,11 +4,14 @@ block content
     h1.my-sm-5 View Users
     table.table
         tr
+            th Avatar
             th id
             th Name
             th Email
             th Phone
         tr
+            td
+                img(src= '/static/' + user.image, width=32)
             td= user.id
             td= user.name
             td= user.email

@@ -59,12 +59,13 @@ module.exports.getUserById = (req, res) => {
 // POST
 module.exports.createUser = (req, res) => {
   const { name, email, phone, password } = req.body;
+  req.body.image = req.file.path.split('/').slice(1).join('/');
 
   bcrypt.hash(req.body.password, 10, function(err, hash) {
     // Store hash in your password DB.
     pool.query(
-      'INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)', 
-      [name, email, phone, hash], 
+      'INSERT INTO users (name, email, phone, password, image) VALUES ($1, $2, $3, $4, $5)', 
+      [name, email, phone, hash, req.body.image], 
       (error, results) => {
         if (error) {
           throw error;
@@ -73,6 +74,7 @@ module.exports.createUser = (req, res) => {
         res.redirect('/users');
       }
     );    
+    console.log(req.body)
   });  
 };
 
