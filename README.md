@@ -5,8 +5,8 @@ title: Acazia NodeJS
 ## CRUD API
 
 ``` bash
-$ git clone https://gitlab.com/acazia-node/crud-api.git
-$ cd crud-api
+$ git clone <source>
+$ cd <dir-name>
 $ npm install
 $ npm run dev
 ```
