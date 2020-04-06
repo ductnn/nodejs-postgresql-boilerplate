@@ -10,7 +10,7 @@ module.exports.getUsers = (req, res) => {
       throw error
     }
     // res.status(200).json(results.rows)
-    console.log(results.rows[0].name)
+    console.log(results.rows[0].password)
     res.render('users/index',{
       users: results
     });
@@ -47,7 +47,7 @@ module.exports.getUserById = (req, res) => {
       throw error
     }
     // res.status(200).json(results.rows);
-    console.log(results.rows[0]);
+    console.log(results.rows[1]);
     res.render('users/view', {
       user: results.rows[0]
     })
