@@ -1,5 +1,5 @@
 const Promise = require('promise');
-const pg = require('pg');
+const pg = require('pg').Pool;
 const connectionString = process.env.DATABASE_URL;
 
 const db = new pg({

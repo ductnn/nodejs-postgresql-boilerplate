@@ -1,5 +1,7 @@
+const Promise = require('promise');
 const bcrypt = require('bcrypt');
-const pool = require('../models/user.model');
+const pool = require('../config/database');
+const User = require('../models/user.model')
 
 // GET
 
@@ -58,25 +60,30 @@ module.exports.getUserById = (req, res) => {
 
 // POST
 module.exports.createUser = (req, res) => {
-  const { name, email, phone, password } = req.body;
   req.body.image = req.file.path.split('/').slice(1).join('/');
+  User.create(req.body)
+    .then(function(result) {
+      res.redirect('/users');
+    })
+    .catch((err) => err);
+  // const { name, email, phone, password } = req.body;
+  // req.body.image = req.file.path.split('/').slice(1).join('/');
 
-  bcrypt.hash(req.body.password, 10, function(err, hash) {
-    // Store hash in your password DB.
-    pool.query(
-      'INSERT INTO users (name, email, phone, password, image) VALUES ($1, $2, $3, $4, $5)', 
-      [name, email, phone, hash, req.body.image], 
-      (error, results) => {
-        if (error) {
-          throw error;
-        };
-        // res.status(201).send(`User added with ID: ${result.insertId}`);    
-        res.redirect('/users');
-      }
-    );    
-  });  
-
-  console.log(req.body);
+  // bcrypt.hash(req.body.password, 10, function(err, hash) {
+  //   // Store hash in your password DB.
+  //   pool.query(
+  //     'INSERT INTO users (name, email, phone, password, image) VALUES ($1, $2, $3, $4, $5)', 
+  //     [name, email, phone, hash, req.body.image], 
+  //     (error, results) => {
+  //       if (error) {
+  //         throw error;
+  //       };
+  //       // res.status(201).send(`User added with ID: ${result.insertId}`);    
+  //       res.redirect('/users');
+  //     }
+  //   );    
+  // });  
+  // console.log(req.body);
 };
 
 // PUT
