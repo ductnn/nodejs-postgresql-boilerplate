@@ -3,9 +3,10 @@ const db = require('../config/database');
 const bcrypt = require('bcrypt');
 
 module.exports = {
+  // READ
   findAll: function() {
     return new Promise((resolve, reject) => {
-      db.query('SELECT id, name, email FROM users', [])
+      db.query('SELECT * FROM users ORDER BY id ASC', [])
         .then((results) => {
           resolve(results.rows);
         })
@@ -56,6 +57,27 @@ module.exports = {
           reject(err);
         });
     });
+  },
+
+  // UPDATE
+  update: function(data) {
+    return new Promise((resolve, reject) => {
+      validateUserData(data)
+        .then(function() {
+          return hashPassword(data.password);
+        })
+        .then(function(hash) {
+          return db.query(
+            'UPDATE users (name, email, phone, password) VALUES ($1, $2, $3, $4) returning id',
+            [data.name, data.email, data.phone, hash]);
+        })
+        .then(function(result) {
+          resolve(result.rows[0]);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    })
   },
 
   // DELETE
