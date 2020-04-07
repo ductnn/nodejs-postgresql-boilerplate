@@ -22,14 +22,14 @@ module.exports = {
         if(data.id) {
           findOneById(data.id)
             .then((results) => {
-              delete results.password;
+              // delete results.password;
               resolve(results);
             })
             .catch((error) => { reject(error) });
         } else if (data.email) {
           findOneByEmail(data.email)
             .then((results) => {
-              delete results.password;
+              // delete results.password;
               resolve(results);
             })
             .catch((error) => { reject(error) });
@@ -71,19 +71,6 @@ module.exports = {
         .catch(function(err) {
           reject(err);
         });
-
-      // validateUserData(data)
-      //   .then(function() {
-      //     return hashPassword(data.password);
-      //   })
-      //   .then(function(hash) {
-      //     return db.query(
-      //       'UPDATE users SET name = $1, email = $2, phone = $3, password = $4 WHERE id = $5',
-      //       [data.name, data.email, data.phone, hash, data.id]);
-      //   })
-      //   .catch(function(err) {
-      //     reject(err);
-      //   });
     })
   },
 

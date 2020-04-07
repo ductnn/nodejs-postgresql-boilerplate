@@ -63,10 +63,12 @@ module.exports.getUserById = (req, res) => {
 
   User.findOne({ id: id })
     .then((result) => {
+      console.log(result.hash)
       return res.render('users/view', {
         user: result
       })
       // return res.status(200).json(result)
+      
     })
     .catch((err) => err)
 
