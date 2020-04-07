@@ -13,6 +13,9 @@ module.exports.postLogin = (req, res) => {
     User.findOne({
         email
     }).then((user) => {
+        // console.log(user.password);
+        // console.log(req.body.password);
+
         if(!user){
             res.render('auth/login', {
                 errors: [
@@ -24,7 +27,7 @@ module.exports.postLogin = (req, res) => {
         } else {
             bcrypt.compare(req.body.password, user.password, (error, result) => {
                 if(result){
-                    req.session.userId = user._id;
+                    req.session.userId = user.id;
                     res.redirect('/');
                 } else{
                     res.render('auth/login', {

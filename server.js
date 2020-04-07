@@ -12,6 +12,9 @@ const app = new express();
 const userRoute = require('./routes/user.route');
 const authRoute = require('./routes/auth.route');
 
+// MIDDLESWARES
+const authMiddleware = require('./middlewares/auth.middleware');
+
 // API
 const apiUserRoute = require('./api/routes/user.route');
 
@@ -31,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 // use ROUTES
-app.use('/users', userRoute);
+app.use('/users', authMiddleware.requireAuth, userRoute);
 app.use('/auth', authRoute);
 
 // use API
