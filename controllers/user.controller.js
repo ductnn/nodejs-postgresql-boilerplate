@@ -114,11 +114,13 @@ module.exports.createUser = (req, res) => {
 
 // PUT
 module.exports.updateUser = (req, res) => {
+  const { name, email, phone, password } = req.body;
   const id = parseInt(req.params.id);
 
-  User.update({ id: id })
+  User.update({ id: id, name: name, email: email, phone: phone, password: password })
     .then((result) => {
       res.redirect('/users');
+      // return res.status(200).send(`User modified with ID: ${id}`);
     })
     .catch((err) => err);
 

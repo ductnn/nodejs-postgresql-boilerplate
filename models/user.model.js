@@ -62,21 +62,28 @@ module.exports = {
   // UPDATE
   update: function(data) {
     return new Promise((resolve, reject) => {
-      validateUserData(data)
-        .then(function() {
-          return hashPassword(data.password);
-        })
-        .then(function(hash) {
-          return db.query(
-            'UPDATE users (name, email, phone, password) VALUES ($1, $2, $3, $4) returning id',
-            [data.name, data.email, data.phone, hash]);
-        })
+      db.query(
+        'UPDATE users SET name = $1, email = $2, phone = $3, password = $4 WHERE id = $5 returning (name, email, phone, password)', 
+        [data.name, data.email, data.phone, hashPassword(data.password), data.id])
         .then(function(result) {
           resolve(result.rows[0]);
         })
         .catch(function(err) {
           reject(err);
         });
+
+      // validateUserData(data)
+      //   .then(function() {
+      //     return hashPassword(data.password);
+      //   })
+      //   .then(function(hash) {
+      //     return db.query(
+      //       'UPDATE users SET name = $1, email = $2, phone = $3, password = $4 WHERE id = $5',
+      //       [data.name, data.email, data.phone, hash, data.id]);
+      //   })
+      //   .catch(function(err) {
+      //     reject(err);
+      //   });
     })
   },
 
