@@ -38,6 +38,16 @@ module.exports = {
     });
   },
 
+  getUserByUserEmail: function(data) {
+    return new Promise(function(resolve, reject) {
+      db.query(`SELECT * FROM users WHERE email = $1`,[data.email])
+        .then((result) => {
+          resolve(result.rows[0])
+        })
+        .catch((err) => reject(err))
+    })
+  },
+
   // CREATE
   create: function(data) {
     return new Promise(function(resolve, reject) {

@@ -7,15 +7,11 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.postLogin = (req, res) => {
-    const id = parseInt(req.body.id);
-    const { email, password } = req.body;    
+    const email = req.body.email;
 
-    User.findOne({
+    User.getUserByUserEmail({
         email
     }).then((user) => {
-        // console.log(user.password);
-        // console.log(req.body.password);
-
         if(!user){
             res.render('auth/login', {
                 errors: [
