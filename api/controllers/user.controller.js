@@ -1,17 +1,17 @@
 const bcrypt = require('bcrypt');
-const pool = require('../../models/user.model');
+const User = require('../../models/user.model');
+const pool = require('../../config/database');
 
 // GET
 
 //-- GET all users
 module.exports.getUsers = (req, res) => {
-  pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
-    if (error) {
-      throw error
-    }
-    res.status(200).json(results.rows)
-  })
-}
+  User.findAll()
+    .then(results => {
+      res.status(200).json(results)
+    })
+    .catch(e => e);
+};
 
 
 //--GET Single users
