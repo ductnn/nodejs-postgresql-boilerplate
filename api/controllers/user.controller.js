@@ -8,7 +8,7 @@ const pool = require('../../config/database');
 module.exports.getUsers = (req, res) => {
   User.findAll()
     .then(results => {
-      res.status(200).json(results)
+      res.status(200).json(results);
     })
     .catch(e => e);
 };
@@ -18,12 +18,11 @@ module.exports.getUsers = (req, res) => {
 module.exports.getUserById = (req, res) => {
   const id = parseInt(req.params.id);
 
-  pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
-    if (error) {
-      throw error
-    }
-    res.status(200).json(results.rows);
-  });
+  User.findOne({ id: id})
+    .then(results => {
+      res.status(200).json(results);
+    })
+    .catch(e => e);
 };
 
 
@@ -66,11 +65,17 @@ module.exports.updateUser = (req, res) => {
 // DELETE
 module.exports.deleteUser = (req, res) => {
   const id = parseInt(req.params.id); 
-  pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
-    if (error) {
-      throw error;
-    };
-    res.status(200).send(`User deleted with ID: ${id}`);
-  });
+
+  User.delete({ id: id })
+    .then(() => {
+      res.status(200).send(`User deleted with ID: ${id}`);
+    })
+
+  // pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+  //   if (error) {
+  //     throw error;
+  //   };
+  //   res.status(200).send(`User deleted with ID: ${id}`);
+  // });
 };
 

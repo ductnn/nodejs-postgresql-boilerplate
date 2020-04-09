@@ -87,7 +87,7 @@ module.exports = {
   // DELETE
   delete: function(data) {
     return new Promise(function(resolve, reject) {
-      db.query('DELETE FROM users WHERE id = $1 returning id', [data.id])
+      db.query('DELETE FROM users WHERE id = $1', [data.id])
         .then(function(result) {
           resolve(result.rows[0]);
         })
