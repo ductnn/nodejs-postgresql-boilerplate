@@ -29,20 +29,12 @@ module.exports.getUserById = (req, res) => {
 
 // POST
 module.exports.createUser = (req, res) => {
-  const { name, email, phone, password } = req.body;
-
-  bcrypt.hash(req.body.password, 10, function(err, hash) {
-    // Store hash in your password DB.
-    pool.query(
-      'INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)', 
-      [name, email, phone, hash], 
-      (error, results) => {
-        if (error) {
-          throw error;
-        };
-        res.status(201).send(`User added with ID: ${result.insertId}`);    
-    });    
-  });  
+  req.body.image = req.file.path.split('/').slice(1).join('/');
+  User.create(req.body)
+    .then(function(result) {
+      res.status(201).send(`User added with ID: ${result.insertId}`);
+    })
+    .catch((err) => err); 
 };
 
 // PUT
@@ -50,16 +42,12 @@ module.exports.updateUser = (req, res) => {
   const id = parseInt(req.params.id);
   const { name, email, phone, password } = req.body;
 
-  pool.query(
-    'UPDATE users SET name = $1, email = $2, phone = $3, password = $4 WHERE id = $5',
-    [name, email, phone, password, id],
-    (error, results) => {
-      if (error) {
-        throw error;
-      };
-      res.status(200).send(`User modified with ID: ${id}`);
-    }
-  );
+  User.update({ id: id, name: name, email: email, phone: phone, password: password })
+  .then((result) => {
+    // res.redirect('/users');
+    return res.status(200).send(`User modified with ID: ${id}`);
+  })
+  .catch((err) => err);
 };
 
 // DELETE
@@ -70,12 +58,5 @@ module.exports.deleteUser = (req, res) => {
     .then(() => {
       res.status(200).send(`User deleted with ID: ${id}`);
     })
-
-  // pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
-  //   if (error) {
-  //     throw error;
-  //   };
-  //   res.status(200).send(`User deleted with ID: ${id}`);
-  // });
 };
 
