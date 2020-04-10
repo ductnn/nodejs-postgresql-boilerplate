@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 // use ROUTES
-app.use('/users', authMiddleware.requireAuth, userRoute);
+app.use('/users', authMiddleware.checkToken, authMiddleware.protectedRoute, userRoute);
 app.use('/auth', authRoute);
 
 // use API
