@@ -29,5 +29,9 @@ html
                     form.form-inline.my-2.my-lg-0(action="/users/search", method="GET")
                         input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search', name="q")
                         button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+            if user
+                p= user.name
         .container.pt-5
             block content
+    
+    script(src='https://kit.fontawesome.com/35815a250d.js', crossorigin='anonymous')

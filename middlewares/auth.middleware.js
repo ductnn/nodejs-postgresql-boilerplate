@@ -19,6 +19,8 @@ module.exports.checkToken = (req, res, next) => {
             jwt.verify(token, secretKey, (err, payload) => {
                 if (payload) {
                     req.user = payload;
+                    res.locals.user = payload;
+                    console.log(payload.name);
                     next();
                 } else {
                     res.redirect('/auth/login');
@@ -26,9 +28,7 @@ module.exports.checkToken = (req, res, next) => {
             })
     } catch (err) {
         res.status(401).send('No token provided');
-    }
-
-    
+    }  
 };
 
 module.exports.protectedRoute = (req, res, next) => {

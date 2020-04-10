@@ -32,13 +32,12 @@ module.exports.postLogin = (req, res) => {
         } else {
             bcrypt.compare(req.body.password, user.password, (error, result) => {
                 if(result){
-                    const token = jwt.sign({ userId: user.id, email: user.email }, secretKey, { expiresIn: '1h' });
-                    // res.status(200).json({
-                    //     userId: user.id,
-                    //     token: token
-                    // });
-                    // req.session.userId = user.id;
-                    // res.cookie('jwt', jwt, { httpOnly: true, secure: true });
+                    const token = jwt.sign({ 
+                        userId: user.id, 
+                        email: user.email,
+                        name: user.name 
+                    }, secretKey, { expiresIn: '1h' });
+
                     localStorage.setItem('token', token);
                     // res.send("Login Successfully");
                     res.redirect('/users');
