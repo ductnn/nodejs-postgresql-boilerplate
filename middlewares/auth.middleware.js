@@ -20,7 +20,6 @@ module.exports.checkToken = (req, res, next) => {
                 if (payload) {
                     req.user = payload;
                     res.locals.user = payload;
-                    console.log(payload.name);
                     next();
                 } else {
                     res.redirect('/auth/login');

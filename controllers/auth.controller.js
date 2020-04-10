@@ -35,7 +35,7 @@ module.exports.postLogin = (req, res) => {
                     const token = jwt.sign({ 
                         userId: user.id, 
                         email: user.email,
-                        name: user.name 
+                        name: user.name
                     }, secretKey, { expiresIn: '1h' });
 
                     localStorage.setItem('token', token);

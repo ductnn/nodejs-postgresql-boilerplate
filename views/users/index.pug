@@ -9,7 +9,7 @@ block content
             input(type="search", name="q", class="form-control mb-2 mr-sm-2", id="search-input", placeholder="Search..." )
             button(class="btn btn-primary mb-2") Search
     table.table.table-striped
-        tr
+        tr.text-center
             th Avatar
             th id
             th Name
@@ -19,9 +19,9 @@ block content
             th Actions
 
         each user in users
-            tr
+            tr.text-center
                 td
-                    img(src= '/static/' + user.image, width=40)
+                    img(src= '/static/' + user.image, width=50)
                 td= user.id
                 td= user.name
                 td= user.email
