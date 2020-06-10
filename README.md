@@ -10,3 +10,5 @@ $ cd <dir-name>
 $ npm install
 $ npm run dev
 ```
+
+### Follow [me](https://github.com/ductnn)
