@@ -10,7 +10,6 @@ if (typeof localStorage === "undefined" || localStorage === null) {
     localStorage = new LocalStorage('./scratch');
 };
 
-
 module.exports.login = (req, res) => {
     res.render('auth/login');
 };
@@ -40,7 +39,6 @@ module.exports.postLogin = (req, res) => {
                     }, secretKey, { expiresIn: '1h' });
 
                     localStorage.setItem('token', token);
-                    // res.send("Login Successfully");
                     res.redirect('/users');
                 } else{
                     res.render('auth/login', {
