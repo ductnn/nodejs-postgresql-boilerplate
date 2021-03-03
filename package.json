@@ -24,7 +24,7 @@
     "node-localstorage": "^2.1.5",
     "pg": "^8.0.0",
     "promise": "^8.1.0",
-    "pug": "^2.0.4"
+    "pug": "^3.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
