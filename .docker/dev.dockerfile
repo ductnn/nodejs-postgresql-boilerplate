@@ -8,8 +8,6 @@ RUN npm install
 
 COPY . .
 
-ENTRYPOINT [ "./main node_modules" ]
-
 EXPOSE 3000
 
 CMD ["npm", "start"]
