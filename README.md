@@ -1,5 +1,5 @@
 # CRUD API Node Server Boilerplate
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ductnn/nodejs-postgresql-boilerplate/pulls) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/ductnn/nodejs-postgresql-boilerplate/actions/workflows/ci.yml/badge.svg)](https://github.com/ductnn/nodejs-postgresql-boilerplate/actions/workflows/ci.yml) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/ductnn/nodejs-postgresql-boilerplate/pulls) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A boilerplate/starter project for quickly building CRUD API using Node.js,
 Express, Pug and Postgres.
