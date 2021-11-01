@@ -1,0 +1,12 @@
+{
+    "apps": [
+        {
+            "name": "NodeServer",
+            "script": "./server.js",
+            "merge_logs": true,
+            "env": {
+                "NODE_ENV": "test"
+            }
+        }
+    ]
+}

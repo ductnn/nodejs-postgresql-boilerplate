@@ -3,3 +3,7 @@ node_modules
 .gitignore
 README.md
 .dockerignore
+.github
+LICENSE
+main
+fano
